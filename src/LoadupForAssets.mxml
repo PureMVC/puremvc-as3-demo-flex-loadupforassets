@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	PureMVC Flex Demo - LoadupForAssets - loading assets with the Loadup utility
+	Copyright (c) 2008 Philip Sexton <philip.sexton@puremvc.org>
+	Your reuse is governed by the Creative Commons Attribution 3.0 License
+-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:sfa="org.puremvc.as3.demos.flex.loadupforassets.view.components.*"
+	pageTitle="PureMVC Demo: LoadupForAssets "
+    layout="vertical" horizontalAlign="center" verticalAlign="middle"
+    backgroundGradientColors="[#325EC0,#FFFFFF]"
+    viewSourceURL="srcview/index.html"
+    backgroundColor="#FFFFFF" 
+    themeColor="HaloBlue"
+    creationComplete="facade.startup(this)">
+    
+    <mx:Script>
+        <![CDATA[
+            
+			import org.puremvc.as3.demos.flex.loadupforassets.ApplicationFacade;
+            private var facade:ApplicationFacade = ApplicationFacade.getInstance();
+            
+        ]]>
+    </mx:Script>    
+
+    <mx:ApplicationControlBar verticalAlign="middle" backgroundColor="#FFFFFF" dock="true">
+       <mx:Text text="Loadup for Assets" fontFamily="Verdana" fontSize="22" fontStyle="normal" color="#0559CC"/>
+       <mx:Label fontWeight="bold" text="PureMVC AS3 / Flex / Loadup Asset Loading Demo"/>
+    </mx:ApplicationControlBar>
+
+	<mx:VDividedBox width="100%" height="95%" horizontalAlign="center">
+		<sfa:GroupOfAssets id="groupOfAssets" width="90%" height="50%"/>
+		<sfa:SingleAssets id="singleAssets" width="90%" height="50%"/>
+	</mx:VDividedBox>
+
+</mx:Application>

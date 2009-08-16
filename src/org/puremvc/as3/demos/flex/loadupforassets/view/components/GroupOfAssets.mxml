@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	PureMVC Flex Demo - LoadupForAssets - loading assets with the Loadup utility
+	Copyright (c) 2009 Philip Sexton <philip.sexton@puremvc.org>
+	Your reuse is governed by the Creative Commons Attribution 3.0 License
+-->
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"
+	title="Assets and Progress Info">
+    
+    <mx:Script>
+        <![CDATA[
+            
+			import mx.core.UIComponent;
+			import mx.collections.ListCollectionView;
+		
+			public function get assetsDisplayComponent() :UIComponent {
+				return  assetsDisplay;
+			}
+		
+			public function get controlsDisplayComponent() :UIComponent {
+				return  controlsDisplay;
+			}
+		
+			[Bindable] public var progressMessages :ListCollectionView;
+
+        ]]>
+    </mx:Script>
+
+	<mx:ApplicationControlBar verticalAlign="middle" backgroundColor="#FFFFFF" dock="true" width="100%">
+		<mx:Text text="Group Of Assets" fontSize="16"/>
+		<mx:HBox width="100%" id="controlsDisplay" horizontalAlign="left"/>
+	</mx:ApplicationControlBar>
+
+	<mx:Tile width="100%" height="50%" id="assetsDisplay"/>
+	<mx:List dataProvider="{progressMessages}" width="100%" height="50%"/>
+
+</mx:Panel>
