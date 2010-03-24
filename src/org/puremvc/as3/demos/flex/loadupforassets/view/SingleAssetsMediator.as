@@ -32,7 +32,7 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
 
     import org.puremvc.as3.utilities.loadup.assetloader.model.AssetGroupProxy;
     import org.puremvc.as3.utilities.loadup.assetloader.model.AssetProxy;
-    import org.puremvc.as3.utilities.loadup.assetloader.model.AssetTypeMap;
+    import org.puremvc.as3.utilities.loadup.assetloader.model.FlexAssetTypeMap;
     import org.puremvc.as3.utilities.loadup.assetloader.model.AssetFactory;
     import org.puremvc.as3.utilities.loadup.assetloader.model.AssetLoaderFactory;
     import org.puremvc.as3.utilities.loadup.assetloader.interfaces.IAsset;
@@ -47,8 +47,8 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
 	{
 		public static const NAME:String = "SingleAssetsMediator";
 
-        private var progressMessages :ListCollectionView = new ArrayCollection();
-        private var assetGroupProxy :AssetGroupProxy;
+        protected var progressMessages :ListCollectionView = new ArrayCollection();
+        protected var assetGroupProxy :AssetGroupProxy;
 
 		public function SingleAssetsMediator( viewComponent:Object ) {
 			super( NAME, viewComponent );
@@ -76,7 +76,7 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
 			return singleAssets.controlsDisplayComponent as UIComponent;
 		}
 
-        private function onShowAsset( event :ItemClickEvent ) :void {
+        protected function onShowAsset( event :ItemClickEvent ) :void {
 			var singles :Object = Proxy( facade.retrieveProxy( ApplicationFacade.SINGLE_URLS)).getData() as Object;
             var url :String = singles[ event.label ];
             if ( url )
@@ -84,11 +84,11 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
             else
                 Alert.show( "Unknown label for a single url, label=" + event.label );
         }
-        private function onFinished( event:Event ) :void {
+        protected function onFinished( event:Event ) :void {
             closeSingleAssetsLoadEnv();
             removeSingleAssetsLoadEnv();        }
 
-        private function processAssetRequest( url :String ) :void {
+        protected function processAssetRequest( url :String ) :void {
             var assetPx :AssetProxy = assetGroupProxy.getAssetProxy( url );
             var asset :IAsset = assetGroupProxy.getAsset( url );
             if ( assetPx ) {
@@ -103,19 +103,19 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
                 loadSingleAsset( url );
         }
 
-        private function addAssetToAssetsDisplayComponent( asset :IAsset ) :void {
+        protected function addAssetToAssetsDisplayComponent( asset :IAsset ) :void {
             var uic :UIComponent = (asset as IAssetForFlex).uiComponent;
             if ( ! uic.parent )
                 addAssetPremierToAssetsDisplayComponent( uic );
             else
                 addAssetRepeatToAssetsDisplayComponent( uic );
         }
-        private function addAssetPremierToAssetsDisplayComponent( uic :UIComponent ) :void {
+        protected function addAssetPremierToAssetsDisplayComponent( uic :UIComponent ) :void {
             uic.width = 120;
             uic.height = 120;
             assetsDisplayComponent.addChild( uic );
         }
-        private function addAssetRepeatToAssetsDisplayComponent( uic :UIComponent ) :void {
+        protected function addAssetRepeatToAssetsDisplayComponent( uic :UIComponent ) :void {
             //var uic :UIComponent = (asset as IAssetForFlex).uiComponent;
             if ( uic is Image ) {
                 var bm :Bitmap = new Bitmap( (( uic as Image).content as Bitmap).bitmapData.clone() );
@@ -162,7 +162,7 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
 		        doHandleNotification( note );
 		}
 		
-		private function doHandleNotification( note:INotification ):void {
+		protected function doHandleNotification( note:INotification ):void {
 		    var errMsg :String;
 			switch ( note.getName() ) {
 			    /*case Loadup.ASSET_LOAD_FAILED:
@@ -213,7 +213,7 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
         /**
          *  This could be a Command.
          */
-        private function createSingleAssetsLoadEnv() :void {
+        protected function createSingleAssetsLoadEnv() :void {
             var loadupMon :LoadupMonitorProxy = new LoadupMonitorProxy(
                 ApplicationFacade.SINGLE_ASSETS_LU_PROXY_NAME );
             facade.registerProxy( loadupMon );
@@ -230,7 +230,7 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
             facade.registerCommand( Loadup.ASSET_LOADED, LoadupResourceLoadedCommand );
             facade.registerCommand( Loadup.ASSET_LOAD_FAILED, LoadupResourceFailedCommand );
 
-            var assetTypeMap :IAssetTypeMap = new AssetTypeMap();
+            var assetTypeMap :IAssetTypeMap = new FlexAssetTypeMap();
             var assetLoaderFactory :IAssetLoaderFactory = new AssetLoaderFactory( assetTypeMap );
 
             var groupPx :AssetGroupProxy = new AssetGroupProxy( assetLoaderFactory,
@@ -241,7 +241,7 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
         /**
          *  This could be a Command.
          */
-        private function loadSingleAsset( url :String ) :void {
+        protected function loadSingleAsset( url :String ) :void {
             var loadupMon :LoadupMonitorProxy = facade.retrieveProxy( 
                 ApplicationFacade.SINGLE_ASSETS_LU_PROXY_NAME ) as LoadupMonitorProxy;
             var groupPx : AssetGroupProxy = facade.retrieveProxy(
@@ -252,7 +252,7 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
                     loadupMon.getProxyName() );
             }
             else {
-                var assetTypeMap :IAssetTypeMap = new AssetTypeMap();
+                var assetTypeMap :IAssetTypeMap = new FlexAssetTypeMap();
                 var assetFactory :IAssetFactory = new AssetFactory( assetTypeMap );
 
                 var asset :IAsset = assetFactory.getAsset( url );
@@ -267,7 +267,7 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
         /**
          *  This could be a Command.
          */
-        private function closeSingleAssetsLoadEnv() :void {
+        protected function closeSingleAssetsLoadEnv() :void {
             var luMon :LoadupMonitorProxy = facade.removeProxy( 
                 ApplicationFacade.SINGLE_ASSETS_LU_PROXY_NAME ) as LoadupMonitorProxy;
             luMon.closeResourceList();
@@ -276,7 +276,7 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
         /**
          *  This could be a Command.
          */
-        private function removeSingleAssetsLoadEnv() :void {
+        protected function removeSingleAssetsLoadEnv() :void {
             var luMon :LoadupMonitorProxy = facade.removeProxy( 
                 ApplicationFacade.SINGLE_ASSETS_LU_PROXY_NAME ) as LoadupMonitorProxy;
             if ( luMon ) luMon.cleanup();

@@ -34,11 +34,11 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
 	{
 		public static const NAME:String = "GroupOfAssetsMediator";
 
-        private var progressMessages :ListCollectionView = new ArrayCollection();
-        private var groupOfUrls :Array;
+        protected var progressMessages :ListCollectionView = new ArrayCollection();
+        protected var groupOfUrls :Array;
 
-        private var loadBtn :Button = new Button();
-        private var loadProgressBar :ProgressBar = new ProgressBar();
+        protected var loadBtn :Button = new Button();
+        protected var loadProgressBar :ProgressBar = new ProgressBar();
 
 		public function GroupOfAssetsMediator( viewComponent:Object ) {
 			super( NAME, viewComponent );
@@ -63,7 +63,7 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
 			return groupOfAssets.controlsDisplayComponent as UIComponent;
 		}
 
-        private function onLoad( event:Event ) :void {
+        protected function onLoad( event:Event ) :void {
             loadBtn.enabled = false;
             loadBtn.removeEventListener( MouseEvent.CLICK, onLoad );
 	        controlsDisplayComponent.removeChild( loadBtn );
@@ -107,7 +107,7 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
 		        doHandleNotification( note );
 		}
 		
-		private function doHandleNotification( note:INotification ):void {
+		protected function doHandleNotification( note:INotification ):void {
 		    var errMsg :String;
 			switch ( note.getName() ) {
 			    /*case Loadup.ASSET_LOAD_FAILED:
@@ -180,7 +180,7 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
          *  - a small interval, say 5 msecs, is better for this demo.
          *  </p>
          */
-         private function loadingInstructions() :LoadAssetGroupInstructions {
+         protected function loadingInstructions() :LoadAssetGroupInstructions {
 			// named Proxy registered in StartupCommand
 			var groupOfUrls:Array = Proxy(facade.retrieveProxy(ApplicationFacade.URL_GROUP)).getData() as Array;
 
@@ -203,7 +203,7 @@ package org.puremvc.as3.demos.flex.loadupforassets.view {
          /**
           *  This could be a Command.
           */
-         private function removeGroupOfAssetsLoadEnv() :void {
+         protected function removeGroupOfAssetsLoadEnv() :void {
              var luMon :LoadupMonitorProxy = facade.removeProxy( 
                  ApplicationFacade.GROUP_ASSETS_LU_PROXY_NAME ) as LoadupMonitorProxy;
              if ( luMon ) luMon.cleanup();

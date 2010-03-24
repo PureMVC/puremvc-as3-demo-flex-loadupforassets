@@ -19,7 +19,7 @@ package org.puremvc.as3.demos.flex.loadupforassets.controller {
 
     import org.puremvc.as3.utilities.loadup.assetloader.model.AssetGroupProxy;
     import org.puremvc.as3.utilities.loadup.assetloader.model.AssetProxy;
-    import org.puremvc.as3.utilities.loadup.assetloader.model.AssetTypeMap;
+    import org.puremvc.as3.utilities.loadup.assetloader.model.FlexAssetTypeMap;
     import org.puremvc.as3.utilities.loadup.assetloader.model.AssetFactory;
     import org.puremvc.as3.utilities.loadup.assetloader.model.AssetLoaderFactory;
     import org.puremvc.as3.utilities.loadup.assetloader.interfaces.IAsset;
@@ -89,7 +89,7 @@ package org.puremvc.as3.demos.flex.loadupforassets.controller {
             var assetGroupProxyName :String = instructions.assetGroupProxyName;
             var groupOfUrls :Array = instructions.groupOfUrls;
 
-            var assetTypeMap :IAssetTypeMap = new AssetTypeMap();
+            var assetTypeMap :IAssetTypeMap = new FlexAssetTypeMap();
             var assetFactory :IAssetFactory = new AssetFactory( assetTypeMap );
             var assetLoaderFactory :IAssetLoaderFactory = new AssetLoaderFactory( assetTypeMap );
 
